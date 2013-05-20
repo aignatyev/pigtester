@@ -1,0 +1,117 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>ru.aignatyev</groupId>
+  <artifactId>pigtester</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>jar</packaging>
+
+  <name>pigtester</name>
+  <url>http://maven.apache.org</url>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <input>/</input>
+    <output>/</output>
+    <script>/</script>
+  </properties>
+
+  <repositories>
+    <repository>
+      <id>cloudera</id>
+      <url>https://repository.cloudera.com/artifactory/cloudera-repos/</url>
+    </repository>
+  </repositories>
+  
+	<build>  
+	 <plugins>  
+	  <plugin>  
+	   <groupId>org.codehaus.mojo</groupId>  
+	   <artifactId>exec-maven-plugin</artifactId>  
+	   <version>1.1.1</version>  
+	   <executions>  
+	    <execution>  
+	     <phase>test</phase>  
+	     <goals>  
+	      <goal>java</goal>  
+	     </goals>  
+	     <configuration>  
+	      <mainClass>ru.aignatyev.pigtester.App</mainClass>  
+	      <!-- <arguments>  
+	       <argument>arg0</argument>  
+	       <argument>arg1</argument>  
+	      </arguments>   -->
+	     </configuration>  
+	    </execution>  
+	   </executions>  
+	  </plugin>  
+	  
+	   <plugin>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>2.6</version>
+        <executions>
+          <execution>
+            <id>copy-resources</id>
+            <phase>validate</phase>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>${basedir}/src/main/resources</outputDirectory>
+              <resources>          
+                <resource>
+                  <directory>${input}</directory>
+                </resource>
+                <resource>
+                  <directory>${output}</directory> 
+                </resource>
+                <resource>
+                  <directory>${script}</directory> 
+                </resource> 
+              </resources>              
+            </configuration>            
+          </execution>
+        </executions>
+      </plugin>
+	 </plugins>  
+	</build>  
+
+  <dependencies>
+	<dependency>
+		<groupId>org.apache.hadoop</groupId>
+		<artifactId>hadoop-core</artifactId>
+		<version>0.20.2</version>
+	</dependency>
+    <dependency>
+		<groupId>org.apache.hadoop</groupId>
+		<artifactId>hadoop-mapred</artifactId>
+		<version>0.22.0</version>
+	</dependency>
+    <dependency>
+		<groupId>org.apache.hadoop</groupId>
+		<artifactId>hadoop-common</artifactId>
+		<version>0.22.0</version>
+	</dependency>
+            
+    <dependency>
+        <groupId>org.apache.pig</groupId>
+        <artifactId>pig</artifactId>
+        <version>0.8.0</version>  
+        <!-- <version>0.10.0-cdh4.2.0</version>--> 
+	</dependency>
+	<dependency>
+		<groupId>org.antlr</groupId>
+		<artifactId>antlr-runtime</artifactId>
+		<version>3.5</version>
+	</dependency>
+               
+            
+    <dependency>
+    	<groupId>junit</groupId>
+     	<artifactId>junit</artifactId>
+    	<version>3.8.1</version>
+    	<scope>test</scope>
+    </dependency>
+  </dependencies>
+</project>
