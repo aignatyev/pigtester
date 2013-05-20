@@ -1,3 +1,3 @@
---A = load '$data' using PigStorage(':');
+A = load 'input.txt' using PigStorage(':');
 B = foreach A generate $0 as id;
---store B into '$result'
+store B into '/target/result'
