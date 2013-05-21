@@ -1,22 +1,15 @@
 package ru.aignatyev;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.List;
-import java.util.Map;
 
 import org.apache.pig.PigServer;
-import org.apache.pig.backend.executionengine.ExecException;
 
 public class App 
 {
-	//TODO parameterize filenames and remove from script
-	//TODO names
-	//TODO load resources
-	private static final String script = "/src/main/resources/script.pig";
-    private static final String input = "/src/main/resources/input.txt";
+	//TODO load resources from relative path
+	private static String script = "/src/main/resources/script.pig";
     private static String output = "/src/main/resources/output.txt";
     private static String RESULT_FOLDER = "/target/result";
 
@@ -24,10 +17,14 @@ public class App
     {
         PigServer pigServer = null;
         String mode = "local";
-
-        Map<String,String> params = null;
-
-        List<String> paramFiles = null;
+        String scriptPath = System.getProperty("script");
+        String outputPath = System.getProperty("output");
+        if(scriptPath != null){
+        	script = scriptPath;
+        }
+        if(outputPath != null){
+        	output = outputPath;
+        }
 
         try {
             pigServer = new PigServer(mode);
